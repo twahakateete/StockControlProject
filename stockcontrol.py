@@ -69,7 +69,13 @@ class StockItem(object):
         """Process the sale of an item, generates an exception if an item is sold when its stock is zero"""
         #TODO
         #hint: use the raise method to create an exception.
-        pass
+         if customer_pay < self.Totalamount:
+            return "Cash paid not enough"
+        elif customer_pay > self.Totalamount:
+            return customer_pay - self.Totalamount
+        else:
+            raise SoldOutOfStockError("item out of stock")
+        #pass
     
 class StockControl(object):
     """The stock control system"""
@@ -79,19 +85,27 @@ class StockControl(object):
         #note: we could have implemented the list as a dictionary, with
         #the barcode as the key, however if the barcode for the item
         #changes we might have problems.
-        self.stocklist = [] #a list of stock items        
-    
+        self.stocklist = [] #a list of stock items   
+        self.restockitem = [] #a list of items that need to be restocked.
+      
     def listRestock(self):
         """Return a string listing items that need restocking"""
         #TODO return a list of items that need restocking
         #hint: Need to loop through the stocklist
-        pass
+         for items in self.stocklist:
+            if items.needRestock():
+                print(items.toString())
+                self.restockitem.append(items)
+        if len(self.restockitem) == 0:
+            print ("All items Stocked")
+        #pass
     
     def addStockType(self,item):
         """Add an item to the stock list"""
         #TODO
         #hint: add an item to this.stocklist
-        pass
+        self.stocklist.append(item)
+        #pass
     
     def sellStock(self,barcode):
         """Process the sale of one item"""
