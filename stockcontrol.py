@@ -61,7 +61,9 @@ class StockItem(object):
         #TODO check if the quantity<threshold and return true if it is
         #we'll set for now the threshold at *five* items
         #so we need to check if self.quantity is less than five.
-        pass
+         if self.quantity < 5:
+            return True
+        #pass
     
     def sell(self):
         """Process the sale of an item, generates an exception if an item is sold when its stock is zero"""
