@@ -186,12 +186,12 @@ print("\nItems that need restocking:\n")
 print(stockctrl.listRestock())
 
 #Uncomment this section to test the restock method
-#print("\nRestocking...\n")
-#for barcode in ['1111','0191','2312','4434','2312','9999']:
-#    try:
-#        stockctrl.restock(barcode,10)    
-#    except ItemNotFoundError as (e):
-#        print("Item not found:" + e.barcode)
+print("\nRestocking...\n")
+for barcode in ['1111','0191','2312','4434','2312','9999']:
+    try:
+        stockctrl.restock(barcode,10)    
+    except ItemNotFoundError as (e):
+        print("Item not found:" + e.barcode)
     
 print("\nItems that need restocking:\n")
 print(stockctrl.listRestock())
