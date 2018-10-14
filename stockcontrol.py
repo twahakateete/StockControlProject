@@ -6,8 +6,8 @@
 ##
 ##
 
-## NAME: KATEETE  TWAHA     NO.:  1800737883
-## 
+## Student's Name:
+## Student's Number:
 
 from datetime import date
 
@@ -51,9 +51,8 @@ class StockItem(object):
 
     def toString(self):
         """Returns a string describing the stock item, its barcode and the quantity remaining"""
-        thedescription = "Name: " + self.name + "Barcode: " +  self.barcode + "Quantity: " + str(self.quantity)
-        return thedescription
-        #pass 
+        #TODO complete this method
+        pass 
     
     def needRestock(self):
         """Returns true if this item needs restocking (i.e. the quantity<a threshold)"""
@@ -141,5 +140,9 @@ print(stockctrl.listRestock())
 #        print("Item not found:" + e.barcode)
     
 print("\nItems that need restocking:\n")
-print(stockctrl.listRestock()) 
+print(stockctrl.listRestock())
+
+#perishable items
+PerishableStockItem = PerishableGoods()
+PerishableStockItem.addperishables(PerishableGoods('Milk','Juice','tomatoes'))
 
