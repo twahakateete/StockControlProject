@@ -177,9 +177,9 @@ print("Testing sales:")
 for barcode in ['1234','2312','1112','1111','2312','1191','0191','2312']:
     try:
         stockctrl.sellStock(barcode)    
-    except SoldOutOfStockError as (e):
+    except SoldOutOfStockError as e:
         print("Stock sold which isn't in stock: " + e.item.toString())
-    except ItemNotFoundError as (e):
+    except ItemNotFoundError as e:
         print("Item not found: " + e.barcode)
 
 print("\nItems that need restocking:\n")
@@ -190,7 +190,7 @@ print("\nRestocking...\n")
 for barcode in ['1111','0191','2312','4434','2312','9999']:
     try:
         stockctrl.restock(barcode, 10)
-    except ItemNotFoundError as (e):
+    except ItemNotFoundError as e:
         print("Item not found: " + e.barcode)
     
 print("\nItems that need restocking:\n")
