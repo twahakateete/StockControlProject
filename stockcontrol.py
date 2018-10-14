@@ -1,10 +1,9 @@
 ## Advanced Programming, coursework 1: Object Orientation
-##
+
 ## The stock control system classes are unfinished.
 ## Work through the 14 steps of the coursework to
 ## implement and extend the methods and classes.
-##
-##
+
 
 ## NAME: KATEETE  TWAHA    		STUDENT'S NO.: 1800737883    	REG. NO: 2018/HD05/1958U
 ## NAME: WAKIBI CHRISTOPHER 	STUDENT'S NO.: 1800740236     	REG. NO: 2018/HD05/1983U
