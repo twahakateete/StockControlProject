@@ -53,8 +53,6 @@ class StockItem(object):
         """Returns a string describing the stock item, its barcode and the quantity remaining"""
         thedescription = "Name: " + self.name + "Barcode: " +  self.barcode + "Quantity: " + str(self.quantity)
         return thedescription
-        #TODO complete this method
-        #pass 
     
     def needRestock(self):
         """Returns true if this item needs restocking (i.e. the quantity<a threshold)"""
@@ -63,7 +61,8 @@ class StockItem(object):
         #so we need to check if self.quantity is less than five.
          if self.quantity < 5:
             return True
-        #pass
+        else:
+            return False
     
     def sell(self):
         """Process the sale of an item, generates an exception if an item is sold when its stock is zero"""
@@ -75,7 +74,6 @@ class StockItem(object):
             return customer_pay - self.Totalamount
         else:
             raise SoldOutOfStockError("item out of stock")
-        #pass
     
 class StockControl(object):
     """The stock control system"""
@@ -105,8 +103,7 @@ class StockControl(object):
         #TODO
         #hint: add an item to this.stocklist
         self.stocklist.append(item)
-        #pass
-    
+        
     def sellStock(self,barcode):
         """Process the sale of one item"""
         #TODO
