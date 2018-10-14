@@ -74,6 +74,37 @@ class StockItem(object):
             return customer_pay - self.Totalamount
         else:
             raise SoldOutOfStockError("item out of stock")
+            
+    def restock(self, quantity):
+        if self.needRestock:
+            self.quantity += quantity
+            
+class PerishableStockItem(stockItem):
+    """The perishable stock control system"""
+
+    def __init__(self, name, barcode, quantity, sellbydate):
+        super(PerishableStockItem, self).__init__(name, barcode, quantity)
+        self.sellbydate = sellbydate
+
+    def toString(self):
+        message = super(PerishableStockItem, self).toString() + ' ' + str(self.sellbydate)
+        return message
+
+    def pastSellByDate(self):
+        if date.today() > self.sellbydate:
+            return True
+        else:
+            return False
+
+    def needRestock(self):
+        if self.quantity < 5 or self.pastSellByDate():
+            return True
+        else:
+            return False
+
+    def restock(self, quantity):
+        if self.needRestock and not self.pastSellByDate():
+            self.quantity += quantity
     
 class StockControl(object):
     """The stock control system"""
@@ -111,6 +142,14 @@ class StockControl(object):
         #and call the 'sell' method of the relevant item
         #return an error if the product isn't found
         pass
+    
+    def restock(self, barcode, quantity):
+        for stockItem in self.stocklist:
+            if stockItem.barcode == barcode:
+                stockItem.restock(quantity)
+        else:
+            #Raise exception here
+            raise ItemNotFoundError(barcode)
         
 
 #Below is some code to test the classes. Feel free
