@@ -5,7 +5,7 @@
 ## implement and extend the methods and classes.
 ##
 ##
-
+## Student's Name: Chope Herbert, Reg Number: 2018/HD05/2162u, Student's Number: 1800737488
 ## Student's Name:
 ## Student's Number:
 
