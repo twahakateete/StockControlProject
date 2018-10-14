@@ -5,9 +5,9 @@
 ## implement and extend the methods and classes.
 ##
 ##
-## Student's Name: Chope Herbert, Reg Number: 2018/HD05/2162u, Student's Number: 1800737488
-## Student's Name:
-## Student's Number:
+
+## NAME: KATEETE  TWAHA    NO.: 1800737883    REG.NO: 2018/HD05/1958U    
+## 
 
 from datetime import date
 
@@ -51,8 +51,10 @@ class StockItem(object):
 
     def toString(self):
         """Returns a string describing the stock item, its barcode and the quantity remaining"""
+        thedescription = "Name: " + self.name + "Barcode: " +  self.barcode + "Quantity: " + str(self.quantity)
+        return thedescription
         #TODO complete this method
-        pass 
+        #pass 
     
     def needRestock(self):
         """Returns true if this item needs restocking (i.e. the quantity<a threshold)"""
