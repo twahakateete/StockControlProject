@@ -163,7 +163,7 @@ stockctrl.addStockType(StockItem('Salt and Vinegar Crisps','4434',3))
 stockctrl.addStockType(StockItem('Museli','0191',2))
 stockctrl.addStockType(StockItem('Flour (1kg)','1191',24))
 #uncomment to test the PerishableStockItem class for milk
-#stockctrl.addStockType(PerishableStockItem('Milk (500ml)','1191',24,date(2013, 10, 26)))
+stockctrl.addStockType(PerishableStockItem('Milk (500ml)','1191',24,date(2013, 10, 26)))
 stockctrl.addStockType(StockItem('Cookies','2312',6))
 stockctrl.addStockType(StockItem('Bags of grapes','1111',0))
 
