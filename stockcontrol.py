@@ -6,10 +6,11 @@
 ##
 ##
 
-## NAME: KATEETE  TWAHA         STUDENT'S NO.: 1800737883       REG. NO: 2018/HD05/1958U    
-## NAME: WAKIBI CHRISTOPHER     STUDENT'S NO.: 1800740236       REG. NO: 2018/HD05/1983U
+## NAME: KATEETE  TWAHA    		STUDENT'S NO.: 1800737883    	REG. NO: 2018/HD05/1958U
+## NAME: WAKIBI CHRISTOPHER 	STUDENT'S NO.: 1800740236     	REG. NO: 2018/HD05/1983U
 ## NAME: CHOPE HERBERT          STUDENT'S NO.: 1800737488       REG. NO: 2018/HD05/2162U
 ## NAME: BEINOMUGISHA EDWIN     STUDENT'S NO:  1800737351       REG. NO: 2018/HD05/1948U
+
 from datetime import date
 
 """A stock control system"""
@@ -52,7 +53,7 @@ class StockItem(object):
 
     def toString(self):
         """Returns a string describing the stock item, its barcode and the quantity remaining"""
-        thedescription = "Name: " + self.name + "Barcode: " +  self.barcode + "Quantity: " + str(self.quantity)
+        thedescription = "Name: " + self.name + " Barcode: " +  self.barcode + " Quantity: " + str(self.quantity)
         return thedescription
     
     def needRestock(self):
@@ -66,13 +67,12 @@ class StockItem(object):
     
     def sell(self):
         """Process the sale of an item, generates an exception if an item is sold when its stock is zero"""
-        #TODO
         #hint: use the raise method to create an exception.
         if self.quantity > 0:
             #We sell now
             self.quantity -= 1
         else:
-            raise SoldOutOfStockError("item out of stock")
+            raise SoldOutOfStockError(self)
             
     def restock(self, quantity):
         if self.needRestock:
@@ -113,25 +113,23 @@ class StockControl(object):
         #note: we could have implemented the list as a dictionary, with
         #the barcode as the key, however if the barcode for the item
         #changes we might have problems.
-        self.stocklist = [] #a list of stock items   
-        self.restockitem = [] #a list of items that need to be restocked.
+        self.stocklist = [] #a list of stock items
       
     def listRestock(self):
         """Return a string listing items that need restocking"""
        #hint: Need to loop through the stocklist
-        for items in self.stocklist:
-            if items.needRestock():
-                print(items.toString())
-                self.restockitem.append(items)
-        if len(self.restockitem) == 0:
-            print ("All items Stocked")
+        listItems = ""
+        for item in self.stocklist:
+            if item.needRestock():
+                listItems = listItems + '- ' + item.toString() + '\n'
+        return listItems
 
     def addStockType(self, item):
         """Add an item to the stock list"""
        #hint: add an item to this.stocklist
         self.stocklist.append(item)
         
-    def sellStock(self,barcode):
+    def sellStock(self, barcode):
         """Process the sale of one item"""
         #hint: look through the list of items,
         #and call the 'sell' method of the relevant item
@@ -139,6 +137,7 @@ class StockControl(object):
         for stockItem in self.stocklist:
             if stockItem.barcode == barcode:
                 stockItem.sell()
+                break
         else:
             #Raise exception here
             raise ItemNotFoundError(barcode)
@@ -147,6 +146,7 @@ class StockControl(object):
         for stockItem in self.stocklist:
             if stockItem.barcode == barcode:
                 stockItem.restock(quantity)
+                break
         else:
             #Raise exception here
             raise ItemNotFoundError(barcode)
@@ -164,8 +164,8 @@ stockctrl.addStockType(StockItem('Museli','0191',2))
 stockctrl.addStockType(StockItem('Flour (1kg)','1191',24))
 #uncomment to test the PerishableStockItem class for milk
 stockctrl.addStockType(PerishableStockItem('Milk (500ml)','1191',24,date(2013, 10, 26)))
-stockctrl.addStockType(StockItem('Cookies','2312',6))
-stockctrl.addStockType(StockItem('Bags of grapes','1111',0))
+stockctrl.addStockType(StockItem('Cookies', '2312', 6))
+stockctrl.addStockType(StockItem('Bags of grapes', '1111', 0))
 
 #Find out what needs restocking
 print("Items that need restocking:\n")
@@ -178,9 +178,9 @@ for barcode in ['1234','2312','1112','1111','2312','1191','0191','2312']:
     try:
         stockctrl.sellStock(barcode)    
     except SoldOutOfStockError as (e):
-        print("Stock sold which isn't in stock:" + str(e.item))
+        print("Stock sold which isn't in stock: " + e.item.toString())
     except ItemNotFoundError as (e):
-        print("Item not found:" + e.barcode)
+        print("Item not found: " + e.barcode)
 
 print("\nItems that need restocking:\n")
 print(stockctrl.listRestock())
@@ -189,9 +189,9 @@ print(stockctrl.listRestock())
 print("\nRestocking...\n")
 for barcode in ['1111','0191','2312','4434','2312','9999']:
     try:
-        stockctrl.restock(barcode,10)    
+        stockctrl.restock(barcode, 10)
     except ItemNotFoundError as (e):
-        print("Item not found:" + e.barcode)
+        print("Item not found: " + e.barcode)
     
 print("\nItems that need restocking:\n")
 print(stockctrl.listRestock())
@@ -199,4 +199,3 @@ print(stockctrl.listRestock())
 #perishable items
 #PerishableStockItem = PerishableGoods()
 #PerishableStockItem.addperishables(PerishableGoods('Milk','Juice','tomatoes'))
-
