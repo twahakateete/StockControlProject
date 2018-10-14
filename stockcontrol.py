@@ -6,8 +6,8 @@
 ##
 ##
 
-## Student's Name:
-## Student's Number:
+## NAME: KATEETE  TWAHA     NO.:  1800737883
+## 
 
 from datetime import date
 
@@ -140,5 +140,5 @@ print(stockctrl.listRestock())
 #        print("Item not found:" + e.barcode)
     
 print("\nItems that need restocking:\n")
-print(stockctrl.listRestock())
+print(stockctrl.listRestock()) 
 
