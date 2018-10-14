@@ -45,9 +45,9 @@ class StockItem(object):
         barcode  -- barcode of product item (string)        
         quantity -- number of items in stock (integer)
         """
-        self.name = name;
-        self.barcode = barcode;
-        self.quantity = quantity;        
+        self.name = name
+        self.barcode = barcode
+        self.quantity = quantity
 
     def toString(self):
         """Returns a string describing the stock item, its barcode and the quantity remaining"""
@@ -56,22 +56,20 @@ class StockItem(object):
     
     def needRestock(self):
         """Returns true if this item needs restocking (i.e. the quantity<a threshold)"""
-        #TODO check if the quantity<threshold and return true if it is
         #we'll set for now the threshold at *five* items
         #so we need to check if self.quantity is less than five.
-         if self.quantity < 5:
+        if self.quantity < 5:
             return True
         else:
             return False
     
-    def sell(self,customer_pay):
+    def sell(self):
         """Process the sale of an item, generates an exception if an item is sold when its stock is zero"""
         #TODO
         #hint: use the raise method to create an exception.
-        if customer_pay < self.Totalamount:
-            return "Cash paid not enough"
-        elif customer_pay > self.Totalamount:
-            return customer_pay - self.Totalamount
+        if self.quantity > 0:
+            #We sell now
+            self.quantity -= 1
         else:
             raise SoldOutOfStockError("item out of stock")
             
@@ -79,7 +77,7 @@ class StockItem(object):
         if self.needRestock:
             self.quantity += quantity
             
-class PerishableStockItem(stockItem):
+class PerishableStockItem(StockItem):
     """The perishable stock control system"""
 
     def __init__(self, name, barcode, quantity, sellbydate):
@@ -119,29 +117,30 @@ class StockControl(object):
       
     def listRestock(self):
         """Return a string listing items that need restocking"""
-        #TODO return a list of items that need restocking
-        #hint: Need to loop through the stocklist
-         for items in self.stocklist:
+       #hint: Need to loop through the stocklist
+        for items in self.stocklist:
             if items.needRestock():
                 print(items.toString())
                 self.restockitem.append(items)
         if len(self.restockitem) == 0:
             print ("All items Stocked")
-        #pass
-    
-    def addStockType(self,item):
+
+    def addStockType(self, item):
         """Add an item to the stock list"""
-        #TODO
-        #hint: add an item to this.stocklist
+       #hint: add an item to this.stocklist
         self.stocklist.append(item)
         
     def sellStock(self,barcode):
         """Process the sale of one item"""
-        #TODO
         #hint: look through the list of items,
         #and call the 'sell' method of the relevant item
         #return an error if the product isn't found
-        pass
+        for stockItem in self.stocklist:
+            if stockItem.barcode == barcode:
+                stockItem.sell()
+        else:
+            #Raise exception here
+            raise ItemNotFoundError(barcode)
     
     def restock(self, barcode, quantity):
         for stockItem in self.stocklist:
@@ -197,6 +196,6 @@ print("\nItems that need restocking:\n")
 print(stockctrl.listRestock())
 
 #perishable items
-PerishableStockItem = PerishableGoods()
-PerishableStockItem.addperishables(PerishableGoods('Milk','Juice','tomatoes'))
+#PerishableStockItem = PerishableGoods()
+#PerishableStockItem.addperishables(PerishableGoods('Milk','Juice','tomatoes'))
 
