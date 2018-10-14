@@ -9,7 +9,7 @@
 ## NAME: KATEETE  TWAHA         STUDENT'S NO.: 1800737883       REG. NO: 2018/HD05/1958U    
 ## NAME: WAKIBI CHRISTOPHER     STUDENT'S NO.: 1800740236       REG. NO: 2018/HD05/1983U
 ## NAME: CHOPE HERBERT          STUDENT'S NO.: 1800737488       REG. NO: 2018/HD05/2162U
-
+## NAME: BEINOMUGISHA EDWIN     STUDENT'S NO:  1800737351       REG. NO: 2018/HD05/1948U
 from datetime import date
 
 """A stock control system"""
@@ -178,7 +178,7 @@ for barcode in ['1234','2312','1112','1111','2312','1191','0191','2312']:
     try:
         stockctrl.sellStock(barcode)    
     except SoldOutOfStockError as (e):
-        print("Stock sold which isn't in stock:" + e.item.toString())
+        print("Stock sold which isn't in stock:" + str(e.item))
     except ItemNotFoundError as (e):
         print("Item not found:" + e.barcode)
 
