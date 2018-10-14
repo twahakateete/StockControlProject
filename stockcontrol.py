@@ -64,11 +64,11 @@ class StockItem(object):
         else:
             return False
     
-    def sell(self):
+    def sell(self,customer_pay):
         """Process the sale of an item, generates an exception if an item is sold when its stock is zero"""
         #TODO
         #hint: use the raise method to create an exception.
-         if customer_pay < self.Totalamount:
+        if customer_pay < self.Totalamount:
             return "Cash paid not enough"
         elif customer_pay > self.Totalamount:
             return customer_pay - self.Totalamount
